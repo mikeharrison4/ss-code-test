@@ -1,5 +1,6 @@
 import { makeObservable, observable } from 'mobx'
 import formatDate from "./utils/formatDate";
+import formatTime from "./utils/formatTime";
 
 class RootStore {
   days = []
@@ -12,7 +13,21 @@ class RootStore {
       times: observable,
     })
 
-    this.times = [6, 6.25, 6.5, 6.75, 7, 7.25, 7.5, 7.75, 8, 8.25, 8.5, 8.75]
+    this.times = [
+      formatTime(6),
+      formatTime(6.25),
+      formatTime(6.5),
+      formatTime(6.75),
+      formatTime(7),
+      formatTime(7.25),
+      formatTime(7.5),
+      formatTime(7.75),
+      formatTime(8),
+      formatTime(8.25),
+      formatTime(8.5),
+      formatTime(8.75),
+    ];
+
     this.days = [
       formatDate('2021-01-01'),
       formatDate('2021-01-02'),
