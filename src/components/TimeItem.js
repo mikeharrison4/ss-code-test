@@ -1,7 +1,16 @@
+import {useStore} from "../App";
+
 function TimeItem(props) {
-  return <button className="timeItem">
-    {props.time}
-  </button>
+  const rootStore = useStore()
+
+  return (
+    <button
+      className="timeItem"
+      onClick={rootStore.selectTime}
+    >
+      {props.time}
+    </button>
+  )
 }
 
 export default TimeItem

@@ -1,7 +1,16 @@
+import {useStore} from "../App";
+
 function DayItem(props) {
-  return <button className="dayItem">
-    {props.day}
-  </button>
+  const rootStore = useStore()
+
+  return (
+    <button
+      className="dayItem"
+      onClick={rootStore.selectDay}
+    >
+      {props.day}
+    </button>
+  )
 }
 
 export default DayItem

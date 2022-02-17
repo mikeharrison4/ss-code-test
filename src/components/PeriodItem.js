@@ -1,7 +1,16 @@
+import {useStore} from "../App";
+
 function PeriodItem(props) {
-  return <button className="periodItem">
-    {props.period}
-  </button>
+  const rootStore = useStore()
+
+  return (
+    <button
+      className="periodItem"
+      onClick={rootStore.selectPeriod}
+    >
+      {props.period}
+    </button>
+  )
 }
 
 export default PeriodItem
