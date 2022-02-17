@@ -1,6 +1,10 @@
 import { makeObservable, observable } from 'mobx'
 import formatDate from "./utils/formatDate";
 import formatTime from "./utils/formatTime";
+import moment from "moment";
+import {DAYS_LIMIT} from "./constants/daysConstants";
+
+const currentDate = moment(new Date());
 
 class RootStore {
   days = []
@@ -29,11 +33,8 @@ class RootStore {
     ];
 
     this.days = [
-      formatDate('2021-01-01'),
-      formatDate('2021-01-02'),
-      formatDate('2021-01-03'),
-      formatDate('2021-01-04'),
-      formatDate('2021-01-05')
+      formatDate(currentDate),
+      ...Array.from(Array(DAYS_LIMIT), (_) => formatDate(currentDate.add(1, 'days')))
     ]
   }
 
