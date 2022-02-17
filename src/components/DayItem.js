@@ -1,16 +1,17 @@
 import {useStore} from "../App";
+import {observer} from "mobx-react-lite";
 
-function DayItem(props) {
+const DayItem = observer(({ day }) => {
   const rootStore = useStore()
 
   return (
     <button
-      className="dayItem"
-      onClick={rootStore.selectDay}
+      className={`dayItem ${rootStore.selectedDay === day ? 'selected' : ''}`}
+      onClick={() => rootStore.setSelectedDay(day)}
     >
-      {props.day}
+      {day}
     </button>
   )
-}
+});
 
 export default DayItem

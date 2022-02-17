@@ -1,16 +1,17 @@
 import {useStore} from "../App";
+import {observer} from "mobx-react-lite";
 
-function PeriodItem(props) {
-  const rootStore = useStore()
+const PeriodItem = observer(({ period }) => {
+  const rootStore = useStore();
 
   return (
     <button
-      className="periodItem"
-      onClick={rootStore.selectPeriod}
+      className={`periodItem ${rootStore.selectedPeriod === period ? 'selected' : ''}`}
+      onClick={() => rootStore.setSelectedPeriod(period)}
     >
-      {props.period}
+      {period}
     </button>
   )
-}
+});
 
 export default PeriodItem

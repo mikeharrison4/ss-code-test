@@ -1,16 +1,17 @@
 import {useStore} from "../App";
+import {observer} from "mobx-react-lite";
 
-function TimeItem(props) {
+const TimeItem = observer(({ time }) => {
   const rootStore = useStore()
 
   return (
     <button
-      className="timeItem"
-      onClick={rootStore.selectTime}
+      className={`timeItem ${rootStore.selectedTime === time ? 'selected' : ''}`}
+      onClick={() => rootStore.setSelectedTime(time)}
     >
-      {props.time}
+      {time}
     </button>
   )
-}
+})
 
 export default TimeItem
