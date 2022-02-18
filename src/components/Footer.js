@@ -3,6 +3,7 @@ import {useStore} from "../App";
 import {observer} from "mobx-react-lite";
 import mockApi from "../mockApi";
 import moment from "moment";
+import {DATE_FORMAT} from "../constants/daysConstants";
 
 const Footer = observer(() => {
   const { selectedTime, selectedDay, requestBooking, setNumOfPros, numOfPros } = useStore();
@@ -11,7 +12,7 @@ const Footer = observer(() => {
     if(selectedDay) {
       const fetchNumberOfPros = async () => {
         setNumOfPros({...numOfPros, isLoading: true});
-        let res = await mockApi.getNumberOfPros(moment(selectedDay, 'MMM Do YYYY').format('D'));
+        let res = await mockApi.getNumberOfPros(moment(selectedDay, DATE_FORMAT).format('D'));
         setNumOfPros({
           isLoading: false,
           value: res,
