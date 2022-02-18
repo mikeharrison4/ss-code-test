@@ -4,8 +4,6 @@ import {observer} from "mobx-react-lite";
 const Footer = observer(() => {
   const { selectedTime, selectedDay, requestBooking } = useStore()
 
-  console.log(selectedTime);
-
   return (
     <div className="footer">
       <div>
