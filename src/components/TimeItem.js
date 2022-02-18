@@ -14,9 +14,7 @@ const disableTimeButton = (time) => {
 }
 
 const TimeItem = observer(({ time }) => {
-  const rootStore = useStore()
-
-  disableTimeButton(time);
+  const rootStore = useStore();
 
   return (
     <button

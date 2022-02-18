@@ -1,4 +1,4 @@
-import {action, makeObservable, observable} from 'mobx'
+import {action, computed, makeObservable, observable} from 'mobx'
 import getTimes from "./utils/getTimes";
 import getDates from "./utils/getDates";
 import moment from "moment";
@@ -24,6 +24,7 @@ class RootStore {
       setSelectedTime: action,
       selectedPeriod: observable,
       setSelectedPeriod: action,
+      filterTimesByPeriod: computed,
     })
 
     this.times = getTimes();
@@ -41,6 +42,22 @@ class RootStore {
 
   setSelectedPeriod = (period) => {
     this.selectedPeriod = period;
+  }
+
+  get filterTimesByPeriod() {
+    const times = this.times;
+    switch (this.selectedPeriod) {
+      case 'Anytime':
+        return times.slice(0, times.indexOf('21:45pm') + 1);
+      case 'Morning':
+        return times.slice(0, times.indexOf('11:45am') + 1);
+      case 'Afternoon':
+        return times.slice(times.indexOf('12:00pm'), times.indexOf('16:45pm') + 1);
+      case 'Evening':
+        return times.slice(times.indexOf('15:00pm'), times.indexOf('21:45pm') + 1);
+      default:
+        return;
+    }
   }
 
   requestBooking = () => {
