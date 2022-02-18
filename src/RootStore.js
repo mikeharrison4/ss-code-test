@@ -32,10 +32,10 @@ class RootStore {
 
   setSelectedDay = (day) => {
     this.selectedDay = day;
+    if(this.selectedTime) this.selectedTime = null;
   }
 
   setSelectedTime = (time) => {
-    console.log(time);
     this.selectedTime = time;
   }
 
