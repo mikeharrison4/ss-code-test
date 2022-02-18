@@ -2,7 +2,7 @@ import {useStore} from "../App";
 import {observer} from "mobx-react-lite";
 
 const DayItem = observer(({ day }) => {
-  const rootStore = useStore()
+  const rootStore = useStore();
 
   return (
     <button

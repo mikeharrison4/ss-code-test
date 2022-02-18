@@ -15,14 +15,15 @@ const disableTimeButton = (time) => {
 
 const TimeItem = observer(({ time }) => {
   const rootStore = useStore();
+  const formattedTime = formatTime(time);
 
   return (
     <button
-      className={`timeItem ${rootStore.selectedTime === time ? 'selected' : ''} ${disableTimeButton(time) ? 'disabled' : ''}`}
-      onClick={() => rootStore.setSelectedTime(time)}
-      disabled={disableTimeButton(time)}
+      className={`timeItem ${rootStore.selectedTime === formattedTime ? 'selected' : ''} ${disableTimeButton(formattedTime) ? 'disabled' : ''}`}
+      onClick={() => rootStore.setSelectedTime(formattedTime)}
+      disabled={disableTimeButton(formattedTime)}
     >
-      {time}
+      {formattedTime}
     </button>
   )
 })

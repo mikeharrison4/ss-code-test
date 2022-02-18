@@ -3,6 +3,8 @@ import getTimes from "./utils/getTimes";
 import getDates from "./utils/getDates";
 import moment from "moment";
 import formatDate from "./utils/formatDate";
+import mockApi from "./mockApi";
+import {DATE_FORMAT} from "./constants/daysConstants";
 
 const currentDate = moment(new Date());
 
@@ -37,9 +39,15 @@ class RootStore {
     this.days = getDates();
   }
 
-  setSelectedDay = (day) => {
+  setSelectedDay = async (day) => {
     this.selectedDay = day;
     if(this.selectedTime) this.selectedTime = null;
+    this.numOfPros = {...this.numOfPros, isLoading: true}
+    const res = await mockApi.getNumberOfPros(moment(this.selectedDay, DATE_FORMAT).format('D'));
+    this.numOfPros = {
+      isLoading: false,
+      value: res,
+    }
   }
 
   setSelectedTime = (time) => {
@@ -58,13 +66,13 @@ class RootStore {
     const times = this.times;
     switch (this.selectedPeriod) {
       case 'Anytime':
-        return times.slice(0, times.indexOf('21:45pm') + 1);
+        return times.slice(0, times.indexOf(21.75) + 1);
       case 'Morning':
-        return times.slice(0, times.indexOf('11:45am') + 1);
+        return times.slice(0, times.indexOf(11.75) + 1);
       case 'Afternoon':
-        return times.slice(times.indexOf('12:00pm'), times.indexOf('16:45pm') + 1);
+        return times.slice(times.indexOf(12), times.indexOf(16.75) + 1);
       case 'Evening':
-        return times.slice(times.indexOf('15:00pm'), times.indexOf('21:45pm') + 1);
+        return times.slice(times.indexOf(15), times.indexOf(21.75) + 1);
       default:
         return;
     }

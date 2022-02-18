@@ -8,19 +8,19 @@ import {DATE_FORMAT} from "../constants/daysConstants";
 const Footer = observer(() => {
   const { selectedTime, selectedDay, requestBooking, setNumOfPros, numOfPros } = useStore();
 
-  useEffect(() => {
-    if(selectedDay) {
-      const fetchNumberOfPros = async () => {
-        setNumOfPros({...numOfPros, isLoading: true});
-        let res = await mockApi.getNumberOfPros(moment(selectedDay, DATE_FORMAT).format('D'));
-        setNumOfPros({
-          isLoading: false,
-          value: res,
-        });
-      }
-      fetchNumberOfPros();
-    }
-  }, [selectedDay]);
+  // useEffect(() => {
+  //   if(selectedDay) {
+  //     const fetchNumberOfPros = async () => {
+  //       setNumOfPros({...numOfPros, isLoading: true});
+  //       let res = await mockApi.getNumberOfPros(moment(selectedDay, DATE_FORMAT).format('D'));
+  //       setNumOfPros({
+  //         isLoading: false,
+  //         value: res,
+  //       });
+  //     }
+  //     fetchNumberOfPros();
+  //   }
+  // }, [selectedDay]);
 
 
   return (
