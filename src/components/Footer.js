@@ -1,23 +1,41 @@
+import React, { useEffect, useState } from "react";
 import {useStore} from "../App";
 import {observer} from "mobx-react-lite";
+import mockApi from "../mockApi";
+import moment from "moment";
 
 const Footer = observer(() => {
-  const { selectedTime, selectedDay, requestBooking } = useStore()
+  const { selectedTime, selectedDay, requestBooking, setNumOfPros, numOfPros } = useStore();
+
+  useEffect(() => {
+    if(selectedDay) {
+      const fetchNumberOfPros = async () => {
+        setNumOfPros({...numOfPros, isLoading: true});
+        let res = await mockApi.getNumberOfPros(moment(selectedDay, 'MMM Do YYYY').format('D'));
+        setNumOfPros({
+          isLoading: false,
+          value: res,
+        });
+      }
+      fetchNumberOfPros();
+    }
+  }, [selectedDay]);
+
 
   return (
     <div className="footer">
       <div>
         <p>
-            {
-              selectedDay && selectedTime
-                ? <b>{`${selectedTime} on ${selectedDay}`}</b>
-                : <b>Please select a time</b>
-            }
+          {
+            selectedDay && selectedTime
+              ? <b>{`${selectedTime} on ${selectedDay}`}</b>
+              : <b>Please select a time</b>
+          }
         </p>
-        <p>0 professionals available</p>
+        { numOfPros.isLoading ? '...' : <p>{`${numOfPros.value} professionals available`}</p> }
       </div>
       <button
-        className={`bookButton ${!selectedTime ? 'disabled' : ''}`}
+        className={`bookButton ${!selectedTime || numOfPros.value === 0 ? 'disabled' : ''}`}
         onClick={requestBooking}
         disabled={!selectedTime}
       >

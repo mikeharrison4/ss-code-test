@@ -13,6 +13,10 @@ class RootStore {
   selectedDay = formatDate(currentDate);
   selectedTime = null;
   selectedPeriod = this.periods[0];
+  numOfPros = {
+    isLoading: false,
+    value: 0,
+  };
 
   constructor() {
     makeObservable(this, {
@@ -25,6 +29,8 @@ class RootStore {
       selectedPeriod: observable,
       setSelectedPeriod: action,
       filterTimesByPeriod: computed,
+      numOfPros: observable,
+      setNumOfPros: action,
     })
 
     this.times = getTimes();
@@ -42,6 +48,10 @@ class RootStore {
 
   setSelectedPeriod = (period) => {
     this.selectedPeriod = period;
+  }
+
+  setNumOfPros = (num) => {
+    this.numOfPros = num;
   }
 
   get filterTimesByPeriod() {
