@@ -71,7 +71,7 @@ class RootStore {
   }
 
   requestBooking = () => {
-    alert("Booking requested!")
+    alert(`Your booking has been made for ${this.selectedTime} on ${this.selectedDay}. We have sent your request to ${this.numOfPros.value} professionals.`)
   }
 }
 
