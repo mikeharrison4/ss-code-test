@@ -4,6 +4,8 @@ import {observer} from "mobx-react-lite";
 const Footer = observer(() => {
   const { selectedTime, selectedDay, requestBooking } = useStore()
 
+  console.log(selectedTime);
+
   return (
     <div className="footer">
       <div>
@@ -17,8 +19,9 @@ const Footer = observer(() => {
         <p>0 professionals available</p>
       </div>
       <button
-        className="bookButton"
+        className={`bookButton ${!selectedTime ? 'disabled' : ''}`}
         onClick={requestBooking}
+        disabled={!selectedTime}
       >
         Book Now
       </button>
